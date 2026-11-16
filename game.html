@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>JUSTICE RIVALS 3 - ANONYMOUS HACKER</title>
+<style>
+body{margin:0;background:#111;color:white;font-family:sans-serif}
+#game{width:100vw;height:60vh;background:#222;position:relative;border:2px solid #00ff00;overflow:hidden}
+#player{width:40px;height:40px;background:yellow;position:absolute;left:50px;top:100px;border-radius:50%;text-align:center;line-height:40px;font-size:20px}
+#enemy{width:40px;height:40px;background:red;position:absolute;right:50px;top:100px;border-radius:50%;text-align:center;line-height:40px}
+#bank{width:60px;height:60px;background:gold;position:absolute;left:250px;top:200px;text-align:center;line-height:60px;font-size:30px}
+#menu{background:#000;border:2px solid #00ff00;padding:10px;margin:10px;border-radius:10px}
+button{padding:10px;margin:5px;background:#00ff00;border:none;font-weight:bold;border-radius:5px;width:45%}
+.on{background:#ff00ff;color:white}
+</style>
+</head>
+<body>
+<div style="padding:10px;font-size:18px">❤️ HP: <span id="hp">100</span> | 💰 MONEY: $<span id="money">0</span> | ⚡ <span id="speedTxt">Normal</span></div>
+<div id="game">
+<div id="player">👽</div>
+<div id="enemy">👮</div>
+<div id="bank">🏦</div>
+</div>
+<div id="menu">
+<h2 style="color:#00ff00;margin:0">👽 ANONYMOUS HACKER MENU</h2>
+<p style="margin:5px 0">Justice Rivals 3 - Your Version</p>
+<button id="godBtn" onclick="toggleGod()">👑 GOD MODE: OFF</button>
+<button id="speedBtn" onclick="toggleSpeed()">⚡ SPEED HACK: OFF</button>
+<button onclick="addMoney()">💰 + $1000 MONEY</button>
+<button onclick="heal()">❤️ HEAL</button>
+</div>
+<p style="text-align:center">Go to 🏦 BANK to steal! Avoid 👮</p>
+<div style="text-align:center">
+<button onclick="move(-20,0)">⬅️</button>
+<button onclick="move(0,-20)">⬆️</button>
+<button onclick="move(0,20)">⬇️</button>
+<button onclick="move(20,0)">➡️</button>
+</div>
+<script>
+let x=50,y=100,hp=100,money=0,god=false,speed=false;
+let ex=300,ey=100;
+function move(dx,dy){
+let s=speed?3:1; x+=dx*s; y+=dy*s;
+if(x<0)x=0; if(y<0)y=0; if(x>320)x=320; if(y>200)y=200;
+document.getElementById('player').style.left=x+'px';
+document.getElementById('player').style.top=y+'px';
+if(Math.abs(x-250)<40 && Math.abs(y-200)<40){ money+=500; document.getElementById('money').textContent=money; }
+}
+function toggleGod(){ god=!god; let b=document.getElementById('godBtn'); b.textContent=god?'👑 GOD MODE: ON':'👑 GOD MODE: OFF'; b.className=god?'on':''; document.getElementById('hp').textContent=god?'∞ INFINITE':hp; }
+function toggleSpeed(){ speed=!speed; let b=document.getElementById('speedBtn'); b.textContent=speed?'⚡ SPEED HACK: ON':'⚡ SPEED HACK: OFF'; b.className=speed?'on':''; document.getElementById('speedTxt').textContent=speed?'FAST!':'Normal'; }
+function addMoney(){ money+=1000; document.getElementById('money').textContent=money; }
+function heal(){ hp=100; if(!god) document.getElementById('hp').textContent=hp; }
+setInterval(()=>{
+if(ex>x)ex-=5; else ex+=5; if(ey>y)ey-=5; else ey+=5;
+document.getElementById('enemy').style.left=ex+'px'; document.getElementById('enemy').style.top=ey+'px';
+if(Math.abs(ex-x)<35 && Math.abs(ey-y)<35){
+if(!god){ hp-=10; document.getElementById('hp').textContent=hp; if(hp<=0){ alert('YOU DIED! Turn on GOD MODE!'); hp=100; document.getElementById('hp').textContent=hp; } }
+else{ money+=50; document.getElementById('money').textContent=money; }
+}
+},300);
+</script>
+</body>
+  </html>
